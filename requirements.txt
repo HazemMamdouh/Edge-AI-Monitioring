@@ -1,0 +1,11 @@
+numpy
+opencv-python>=4.6
+scipy
+pyyaml
+psutil
+rich
+pillow
+ultralytics>=8.3
+onnx>=1.14
+onnxruntime>=1.16
+onnxslim

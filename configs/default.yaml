@@ -1,0 +1,48 @@
+# mantrap-guard configuration. Every key is optional: anything left out falls back to the
+# built-in defaults in src/mantrap_guard/config.py. Pass with:  mantrap run --config <file>
+
+model:
+  pose: models/yolo11n-pose.pt     # .pt | .onnx | .engine (TensorRT FP16 / INT8)
+  objects: null                    # optional COCO detector for left objects, e.g. models/yolo11n.pt
+  imgsz: 640
+  conf: 0.15                       # low on purpose: the tracker's 2nd stage uses low-score boxes
+  iou: 0.6
+  device: null                     # null = auto, "cpu", 0
+  half: false                      # FP16 for .pt on GPU
+  object_classes: [24, 26, 28]     # COCO: backpack, handbag, suitcase
+  object_conf: 0.25
+
+zone:
+  kpt_conf: 0.35                   # min confidence for a leg keypoint (knees, ankles)
+  min_leg_points: 1                # leg keypoints that must be inside the mantrap polygon
+  fallback_to_bbox: true           # no confident leg keypoint -> use bbox bottom-centre
+  exit_debounce_frames: 5
+
+tracker:                           # ByteTrack-style, two-stage IoU association
+  high_thresh: 0.5
+  low_thresh: 0.15
+  new_track_thresh: 0.55
+  match_iou: 0.2
+  match_iou_low: 0.4
+  max_age: 30
+  min_hits: 2
+
+flow:
+  method: dis                      # dis (fast) | farneback
+  width: 480                       # flow runs on the frame downscaled to this width
+  moving_px: 0.35
+  min_moving_frac: 0.12
+  ema: 0.5
+
+rules:                             # speeds are in body-heights per second
+  static:           {enabled: false, seconds: 3.0, speed: 0.05, grace: 0.4}
+  wrong_way:        {enabled: true, speed: 0.08, cos: 0.15, seconds: 0.5}
+  exit_intrusion:   {enabled: false, latch: 2.0}
+  abandoned_object: {enabled: false, seconds: 5.0, move_frac: 0.5}
+  alert_hold: 1.0                  # seconds the red overlay stays after the last alert
+
+viz:
+  skeleton: true
+  flow_arrows: true
+  show_outside: true               # draw (greyed) people who are not in the mantrap
+  overlay_alpha: 0.2               # strength of the red warning tint

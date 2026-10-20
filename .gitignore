@@ -1,0 +1,14 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+# weights and exported engines are downloaded / built, not committed
+models/*
+!models/.gitkeep
+*.calib
+# demo footage is fetched by scripts/download_assets.sh
+data/*
+!data/.gitkeep
+outputs/
+runs/

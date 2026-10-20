@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mantrap-guard"
+version = "0.1.0"
+description = "Mantrap / exit-lane monitoring: pose, tracking, optical flow and a rule engine, optimised for NVIDIA Jetson with TensorRT."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "Hazem Hassan" }]
+keywords = ["computer-vision", "pose-estimation", "tracking", "optical-flow", "tensorrt", "jetson"]
+dependencies = [
+    "numpy",
+    "opencv-python>=4.6",
+    "scipy",
+    "pyyaml",
+    "psutil",
+    "rich",
+    "pillow",
+    "ultralytics>=8.3",
+]
+
+[project.optional-dependencies]
+export = ["onnx>=1.14", "onnxruntime>=1.16", "onnxslim"]
+dev = ["pytest"]
+
+[project.scripts]
+mantrap = "mantrap_guard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mantrap_guard = ["fonts/*.ttf", "fonts/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
