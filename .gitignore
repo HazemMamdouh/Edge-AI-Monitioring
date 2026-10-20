@@ -12,3 +12,4 @@ data/*
 !data/.gitkeep
 outputs/
 runs/
+.DS_Store
