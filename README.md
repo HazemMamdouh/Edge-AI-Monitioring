@@ -16,7 +16,7 @@
 
 This is a **public, pre-defined demonstration** of a production system I built for automated exit gates (mantraps).
 
-The **original project uses customised models that are not published**. They were trained to catch these fraud actions:
+The **original project uses customized models that are not published**. They were trained to catch these fraud actions:
 
 1. A person **entering through the exit gate**, possibly hiding in the "spider-man" position.
 2. A person or object **stationary in the mantrap** area.
@@ -157,7 +157,7 @@ All thresholds live in [`configs/default.yaml`](configs/default.yaml). The overl
 ## Quick start
 
 ```bash
-git clone <this repo> && cd mantrap-guard
+git clone https://github.com/HazemMamdouh/Edge-AI-Monitioring.git && cd Edge-AI-Monitioring
 pip install -e ".[export]"
 bash scripts/download_assets.sh        # published weights + CC BY 4.0 demo clip
 bash scripts/demo.sh                   # export ONNX, run, build the showcase video
